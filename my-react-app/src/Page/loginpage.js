@@ -1,18 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {Button, TextField} from '@mui/material';
 function Login() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginSuccess, setLoginSuccess] = useState(false);
     const handleClick = () => {
-        alert('button click catched');
-        };
+        const user = database.find((user) => user.username === username && user.password === password);
+        if (user) {
+          setLoginSuccess(true);
+          setUsername('')
+          setPassword('')
+        } else {
+          setLoginSuccess(false);
+          alert('Invalid username or password');
+        }
+        setUsername('')
+        setPassword('')
+    };
+    
+    const database = [
+        {
+            username: "anu",
+            password: "1234"
+        }];
+
+    
     return (
         <div>
-            <p>Username: <input type="text" value="anu" /></p>
             <br/>
-            <p>Password: <input type="text" value ="123"/></p>
+            <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <br />
             <br/>
-            <button type="submit" onClick = {handleClick} >
-              Login Here
-            </button>
+            <TextField id="outlined-basic" label="Password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <br/>
+            <br/>
+            <Button variant="contained" onClick={handleClick }> Login </Button>
+            {loginSuccess && <p>Login Successful!</p>}
         </div>
+
       
     );
   }
