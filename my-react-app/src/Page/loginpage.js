@@ -1,28 +1,43 @@
 import React, { useState } from 'react';
-import {Button, TextField, Card, CardContent} from '@mui/material';
+import {Button, TextField, Card, CardContent, Snackbar} from '@mui/material';
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loginSuccess, setLoginSuccess] = useState(false);
     const [fieldError, setFieldError] = useState(false);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
 
     const handleClick = () => {
 
         if (username.trim() === '' || password.trim() === '') {
         setFieldError(true);
+        setSnackbarOpen(true);
         return;
         }
 
         const user = database.find((user) => user.username === username && user.password === password);
         if (user) {
             setLoginSuccess(true);
+            setSnackbarOpen(true);
+            resetfileds()
         } 
         else {
             setLoginSuccess(false);
             alert('Invalid username or password');
+            resetfileds()
         }
     };
-    
+
+    const resetfileds = () =>
+    {
+        setUsername('')
+        setPassword('')
+    }
+
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
+      };
+
     const database = [
         {
             username: "anu",
@@ -49,7 +64,7 @@ function Login() {
             <br/>
             <br/>
             <Button variant="contained" onClick={handleClick }> Login </Button>
-            {loginSuccess && <p>Login Successful!</p>}
+            <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose} message={loginSuccess ? 'Login Successful!' : 'Invalid username or password'} />
             </CardContent>
         </Card>
         </div>
