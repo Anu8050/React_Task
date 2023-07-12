@@ -9,19 +9,18 @@ function Login() {
     const handleClick = () => {
 
         if (username.trim() === '' || password.trim() === '') {
-            setFieldError(true);
-            return;
-          }
-      
-          const user = database.find((user) => user.username === username && user.password === password);
-          if (user) {
+        setFieldError(true);
+        return;
+        }
+
+        const user = database.find((user) => user.username === username && user.password === password);
+        if (user) {
             setLoginSuccess(true);
-            setUsername('');
-            setPassword('');
-          } else {
+        } 
+        else {
             setLoginSuccess(false);
             alert('Invalid username or password');
-          }
+        }
     };
     
     const database = [
