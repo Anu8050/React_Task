@@ -64,7 +64,8 @@ function Login() {
             <br/>
             <br/>
             <Button variant="contained" onClick={handleClick }> Login </Button>
-            <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose} message={loginSuccess ? 'Login Successful!' : 'Invalid username or password'} />
+            <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose} 
+            message={loginSuccess ? 'Login Successful!' : 'Invalid username or password'} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} />
             </CardContent>
         </Card>
         </div>
