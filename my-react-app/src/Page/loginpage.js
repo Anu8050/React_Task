@@ -10,21 +10,25 @@ function Login() {
 
     const handleClick = () => {
 
-        if (username.trim() === '' || password.trim() === '') {
-        setFieldError(true);
-        setSnackbarOpen(true);
-        return;
+        if (username.trim() === '' || password.trim() === '') 
+        {
+            setFieldError(true);
+            setSnackbarOpen(true);
+            return;
         }
 
         const user = database.find((user) => user.username === username && user.password === password);
-        if (user) {
+        if (user) 
+        {
             setLoginSuccess(true);
             setSnackbarOpen(true);
             resetfileds()
         } 
-        else {
+        else 
+        {
             setLoginSuccess(false);
-            alert('Invalid username or password');
+            setSnackbarOpen(true);
+            // alert('Invalid username or password');
             resetfileds()
         }
     };
@@ -35,7 +39,8 @@ function Login() {
         setPassword('')
     }
 
-    const handleSnackbarClose = () => {
+    const handleSnackbarClose = () => 
+    {
         setSnackbarOpen(false);
       };
 
@@ -65,14 +70,18 @@ function Login() {
             <br/>
             <br/>
             <Button variant="contained" onClick={handleClick }> Login </Button>
-            <Snackbar open={snackbarOpen} 
-            autoHideDuration={3000} onClose={handleSnackbarClose} 
-            message={loginSuccess ? 'Login Successful!' : 'Invalid username or password'} 
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-            <Alert style={{backgroundColor: 'blue', color:'whitesmoke'}} onClose={handleSnackbarClose} sx={{ width: '100%' }}>
-            Login Successful message!
-            </Alert>
-            </Snackbar> 
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+                <Alert style={{background:'blue', color:'white'}} 
+                severity={loginSuccess ? 'success' : 'error'}
+                onClose={handleSnackbarClose}
+                sx={{ width: '100%' }}>
+                {loginSuccess ? 'Login Successful!' : 'Invalid username or password'}
+                </Alert>
+            </Snackbar>
             </CardContent>
         </Card>
         </div>
