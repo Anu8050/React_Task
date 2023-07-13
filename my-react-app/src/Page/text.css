@@ -7,9 +7,15 @@
 
 .custom-outline .MuiOutlinedInput-notchedOutline {
     border-color: green;
-    margin-bottom: '50px'
   }
   
   .custom-outline.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: green;
   }
+
+.itempage{
+  margin: 10px;
+  align-items: center;
+  border-color: brown;
+  text-align: center;
+}

@@ -46,7 +46,7 @@ function Login() {
         const timer = setTimeout(() => {
           setPopupOpen(false);
           clearTimeout(timer);
-          navigate('itempage'); 
+          navigate('/itempage'); 
         }, 2000);
         setNavigateTimer(timer);
       };
@@ -96,7 +96,6 @@ function Login() {
             <Dialog open={popupOpen} onClose={closePopup}>
             <DialogContent>
                 <CircularProgress />
-                
             </DialogContent>
             </Dialog>
             

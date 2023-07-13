@@ -7,12 +7,11 @@ import Itempage from './Page/itempage'
 function App() {
   return (
     <div className="App">
-
     <Router>
       <Routes>
         <Route path = '/' Component={Welcome}></Route>
         <Route path = '/loginpage' Component={Login}></Route>
-        <Route path ='/itempage.js' Component={Itempage}></Route>
+        <Route path ='/itempage' Component={Itempage}></Route>
       </Routes>
     </Router>
 
