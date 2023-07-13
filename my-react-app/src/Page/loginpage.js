@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import {Button, TextField, Card, CardContent, Snackbar, Alert, createTheme, ThemeProvider, Dialog, CircularProgress, DialogTitle, DialogContent} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {Button, TextField, Card, CardContent, Snackbar, Alert, IconButton, InputAdornment, createTheme, ThemeProvider, Dialog, CircularProgress, DialogTitle, DialogContent} from '@mui/material';
 import './text.css';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loginSuccess, setLoginSuccess] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [fieldError, setFieldError] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const [navigateTimer, setNavigateTimer] = useState(null);
@@ -41,7 +43,8 @@ function Login() {
         setPassword('')
     }
 
-    const openPopup = () => {
+    const openPopup = () => 
+    {
         setPopupOpen(true);
         const timer = setTimeout(() => {
           setPopupOpen(false);
@@ -51,9 +54,20 @@ function Login() {
         setNavigateTimer(timer);
       };
       
-    const closePopup = () => {
+    const closePopup = () => 
+    {
     setPopupOpen(false);
     clearTimeout(navigateTimer);
+    };
+
+    const handleClickShowPassword = () => 
+    {
+        setShowPassword(!showPassword);
+    };
+    
+    const handleMouseDownPassword = (event) => 
+    {
+        event.preventDefault();
     };
 
     const database = [
@@ -86,7 +100,14 @@ function Login() {
                 <TextField className="custom-outline"  type="password" id="outlined-basic" label="Password" variant="outlined" value={password} 
                 style={{ marginBottom: '20px' }}
                 // InputLabelProps={{style: { color: 'green'},}}
-                InputProps={{style: { borderColor: 'green' },}}
+                InputProps={{style: { borderColor: 'green' }, type: showPassword ? 'text' : 'password',endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} 
+                                    onMouseDown={handleMouseDownPassword}>
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        ),}}
                 onChange={(e) => setPassword(e.target.value)} 
                 error={fieldError && password.trim() === ''}
                 helperText={fieldError && password.trim() === '' ? 'Please enter the password' : ''}
