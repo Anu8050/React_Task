@@ -12,35 +12,49 @@ function Login() {
     const [fieldError, setFieldError] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const [navigateTimer, setNavigateTimer] = useState(null);
+    const [passwordLength, setPasswordLength] = useState(0);
 
     const navigate = useNavigate();
-    const handleClick = () => {
-
+    const handleClick = () => 
+    {
         if (username.trim() === '' || password.trim() === '') 
         {
             setFieldError(true);
             return;
         }
-
-        const user = database.find((user) => user.username === username && user.password === password);
+      
+        if (password.length > 8) 
+        {
+            setFieldError(true);
+            alert('Maximum password length is 8 characters');
+            resetFields();
+            return;
+        }
+      
+        const user = database.find(
+          (user) => user.username === username && user.password === password
+        );
         if (user) 
         {
+
             setLoginSuccess(true);
-            resetfileds()
+            resetFields();
             openPopup();
         } 
         else 
         {
             setLoginSuccess(false);
-            // alert('Invalid username or password');
-            resetfileds()
+            alert('Invalid username or password');
+            resetFields();
         }
-    };
+      };
+      
 
-    const resetfileds = () =>
+    const resetFields = () =>
     {
-        setUsername('')
-        setPassword('')
+        setUsername('');
+        setPassword('');
+        setPasswordLength(0);
     }
 
     const openPopup = () => 
@@ -63,6 +77,7 @@ function Login() {
     const handleClickShowPassword = () => 
     {
         setShowPassword(!showPassword);
+        setPasswordLength(0);
     };
     
     const handleMouseDownPassword = (event) => 
@@ -100,7 +115,10 @@ function Login() {
                 <TextField className="custom-outline"  type="password" id="outlined-basic" label="Password" variant="outlined" value={password} 
                 style={{ marginBottom: '20px' }}
                 // InputLabelProps={{style: { color: 'green'},}}
-                InputProps={{style: { borderColor: 'green' }, type: showPassword ? 'text' : 'password',endAdornment: (
+                InputProps={{style: { borderColor: 'green' },
+                maxLength:8,
+                //  type: showPassword ? 'text' : 'password',
+                 endAdornment: (
                             <InputAdornment position="end">
                                 <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} 
                                     onMouseDown={handleMouseDownPassword}>
@@ -108,9 +126,19 @@ function Login() {
                                 </IconButton>
                             </InputAdornment>
                         ),}}
-                onChange={(e) => setPassword(e.target.value)} 
-                error={fieldError && password.trim() === ''}
-                helperText={fieldError && password.trim() === '' ? 'Please enter the password' : ''}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    setPassword(value);
+                    setPasswordLength(value.length); 
+                  }}
+                  error={fieldError && password.trim() === ''}
+                  helperText={
+                    fieldError && password.trim() === ''
+                      ? 'Please enter the password'
+                      : passwordLength > 8 
+                      ? 'Maximum length is 8'
+                      : `${8 - passwordLength} characters remaining` 
+                  }
                 />
             </ThemeProvider>
             <Button variant="contained" onClick={handleClick }> Login </Button>
