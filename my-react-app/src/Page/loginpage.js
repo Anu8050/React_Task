@@ -65,7 +65,7 @@ function Login() {
             <ThemeProvider theme={theme}>
                 <TextField className="custom-outline" id="outlined-basic" label="Username" variant="outlined" value={username} 
                 style={{ marginBottom: '20px' }}
-                InputLabelProps={{style: { color: 'green'},}}
+                // InputLabelProps={{style: { color: 'green'},}}
                 InputProps={{style: { borderColor: 'green' },}}
                 onChange={(e) => setUsername(e.target.value)} 
                 error={fieldError && username.trim() === ''}
@@ -73,7 +73,7 @@ function Login() {
                 />
                 <TextField className="custom-outline"  id="outlined-basic" label="Password" variant="outlined" value={password} 
                 style={{ marginBottom: '20px' }}
-                InputLabelProps={{style: { color: 'green'},}}
+                // InputLabelProps={{style: { color: 'green'},}}
                 InputProps={{style: { borderColor: 'green' },}}
                 onChange={(e) => setPassword(e.target.value)} 
                 error={fieldError && password.trim() === ''}
@@ -86,7 +86,7 @@ function Login() {
                 autoHideDuration={3000}
                 onClose={handleSnackbarClose}
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-                <Alert style={{background:'blue', color:'white'}} 
+                <Alert style={{background:'green', color:'white'}} 
                 severity={loginSuccess ? 'success' : 'error'}
                 onClose={handleSnackbarClose}
                 sx={{ width: '100%' }}>
