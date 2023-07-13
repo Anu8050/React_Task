@@ -22,9 +22,7 @@ function Welcome() {
     };
     return (
       <div style={myStyle} >
-        <div >
-        <Button style={{backgroundColor:'green', color:'white'}} variant="contained" onClick={handleClick }> Chechin </Button>
-        </div>
+        <Button style={{backgroundColor:'green', color:'white'}} variant="contained" onClick={handleClick }> Checkin </Button>
         
       </div>
     );

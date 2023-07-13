@@ -1,4 +1,15 @@
 .card {
-    margin: 20px; 
     padding: 20px;
+    /* background-color: red; */
+    /* border:1px solid red; */
+  }
+
+
+.custom-outline .MuiOutlinedInput-notchedOutline {
+    border-color: green;
+    margin-bottom: '50px'
+  }
+  
+  .custom-outline.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: green;
   }
