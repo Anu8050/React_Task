@@ -15,7 +15,7 @@ function Itempage() {
         <Tab label="Item Three" />
       </Tabs>
       <Box style={{ display: 'flex', alignItems: 'flex-start' }}>
-        {value === 0 && <p style={{}}>item one</p>}
+        {value === 0 && <p>item one</p>}
         {value === 1 && <p>item two</p>}
         {value === 2 && <p>item three</p>}
       </Box>

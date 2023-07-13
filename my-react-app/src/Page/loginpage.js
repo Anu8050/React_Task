@@ -83,7 +83,7 @@ function Login() {
                 error={fieldError && username.trim() === ''}
                 helperText={fieldError && username.trim() === '' ? 'Please enter the username' : ''}
                 />
-                <TextField className="custom-outline"  id="outlined-basic" label="Password" variant="outlined" value={password} 
+                <TextField className="custom-outline"  type="password" id="outlined-basic" label="Password" variant="outlined" value={password} 
                 style={{ marginBottom: '20px' }}
                 // InputLabelProps={{style: { color: 'green'},}}
                 InputProps={{style: { borderColor: 'green' },}}
