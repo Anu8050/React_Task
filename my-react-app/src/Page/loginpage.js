@@ -15,28 +15,54 @@ function Login() {
     const [passwordLength, setPasswordLength] = useState(0);
 
     const navigate = useNavigate();
-    const handleClick = () => 
-    {
+    const handleClick = () => {
         if (username.trim() === '' || password.trim() === '') 
         {
             setFieldError(true);
             return;
         }
-      
-        if (password.length > 8) 
+        
+        // const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.$#@])[A-Za-z\d.#@]{8,}$/;
+        
+        // if (!passwordPattern.test(password)) 
+        // {
+        //     setFieldError(true);
+        //     alert('Password must contain one capital latter, samall latter, number, special character');
+        //     return;
+        // }
+
+        // Check if password contains at least one capital letter
+        if (!/[A-Z]/.test(password)) 
         {
             setFieldError(true);
-            alert('Maximum password length is 8 characters');
+            alert('Password must contain at least one capital letter');
             resetFields();
             return;
         }
-      
+
+        // Check if password contains at least one number
+        if (!/\d/.test(password)) 
+        {
+            setFieldError(true);
+            alert('Password must contain at least one number');
+            resetFields();
+            return;
+        }
+
+        // Check if password contains at least one special character (.#@)
+        if (!/[.#@]/.test(password)) 
+        {
+            setFieldError(true);
+            alert('Password must contain at least one of the following special characters: .#@');
+            resetFields();
+            return;
+        }
+
         const user = database.find(
           (user) => user.username === username && user.password === password
         );
         if (user) 
         {
-
             setLoginSuccess(true);
             resetFields();
             openPopup();
@@ -55,6 +81,7 @@ function Login() {
         setUsername('');
         setPassword('');
         setPasswordLength(0);
+        setFieldError(false);
     }
 
     const openPopup = () => 
@@ -66,7 +93,7 @@ function Login() {
           navigate('/itempage'); 
         }, 2000);
         setNavigateTimer(timer);
-      };
+    };
       
     const closePopup = () => 
     {
@@ -117,15 +144,15 @@ function Login() {
                 // InputLabelProps={{style: { color: 'green'},}}
                 InputProps={{style: { borderColor: 'green' },
                 maxLength:8,
-                //  type: showPassword ? 'text' : 'password',
-                 endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} 
-                                    onMouseDown={handleMouseDownPassword}>
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),}}
+                type: showPassword ? 'text' : 'password',
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} 
+                            onMouseDown={handleMouseDownPassword}>
+                                {showPassword ? <Visibility />: <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                ),}}
                 onChange={(e) => {
                     const value = e.target.value;
                     setPassword(value);
@@ -136,7 +163,7 @@ function Login() {
                     fieldError && password.trim() === ''
                       ? 'Please enter the password'
                       : passwordLength > 8 
-                      ? 'Maximum length is 8'
+                      ? 'Maximum length is 8' 
                       : `${8 - passwordLength} characters remaining` 
                   }
                 />
