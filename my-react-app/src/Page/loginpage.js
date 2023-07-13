@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import {Button, TextField, Card, CardContent, Snackbar, Alert, createTheme, ThemeProvider} from '@mui/material';
+import {useNavigate} from 'react-router-dom';
+import {Button, TextField, Card, CardContent, Snackbar, Alert, createTheme, ThemeProvider, Dialog, CircularProgress, DialogTitle, DialogContent} from '@mui/material';
 import './text.css';
 
 function Login() {
@@ -7,14 +8,15 @@ function Login() {
     const [password, setPassword] = useState('');
     const [loginSuccess, setLoginSuccess] = useState(false);
     const [fieldError, setFieldError] = useState(false);
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [popupOpen, setPopupOpen] = useState(false);
+    const [navigateTimer, setNavigateTimer] = useState(null);
 
+    const navigate = useNavigate();
     const handleClick = () => {
 
         if (username.trim() === '' || password.trim() === '') 
         {
             setFieldError(true);
-            setSnackbarOpen(true);
             return;
         }
 
@@ -22,13 +24,12 @@ function Login() {
         if (user) 
         {
             setLoginSuccess(true);
-            setSnackbarOpen(true);
             resetfileds()
+            openPopup();
         } 
         else 
         {
             setLoginSuccess(false);
-            setSnackbarOpen(true);
             // alert('Invalid username or password');
             resetfileds()
         }
@@ -39,10 +40,21 @@ function Login() {
         setUsername('')
         setPassword('')
     }
-    const handleSnackbarClose = () => 
-    {
-        setSnackbarOpen(false);
+
+    const openPopup = () => {
+        setPopupOpen(true);
+        const timer = setTimeout(() => {
+          setPopupOpen(false);
+          clearTimeout(timer);
+          navigate('itempage'); 
+        }, 2000);
+        setNavigateTimer(timer);
       };
+      
+    const closePopup = () => {
+    setPopupOpen(false);
+    clearTimeout(navigateTimer);
+    };
 
     const database = [
         {
@@ -81,18 +93,13 @@ function Login() {
                 />
             </ThemeProvider>
             <Button variant="contained" onClick={handleClick }> Login </Button>
-            <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={3000}
-                onClose={handleSnackbarClose}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-                <Alert style={{background:'green', color:'white'}} 
-                severity={loginSuccess ? 'success' : 'error'}
-                onClose={handleSnackbarClose}
-                sx={{ width: '100%' }}>
-                {loginSuccess ? 'Login Successful!' : 'Invalid username or password'}
-                </Alert>
-            </Snackbar>
+            <Dialog open={popupOpen} onClose={closePopup}>
+            <DialogContent>
+                <CircularProgress />
+                
+            </DialogContent>
+            </Dialog>
+            
             </CardContent>
             </Card>
         </div>
