@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import {Button, TextField, Card, CardContent, Snackbar} from '@mui/material';
+import {Button, TextField, Card, CardContent, Snackbar, Alert} from '@mui/material';
+
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -64,8 +65,14 @@ function Login() {
             <br/>
             <br/>
             <Button variant="contained" onClick={handleClick }> Login </Button>
-            <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose} 
-            message={loginSuccess ? 'Login Successful!' : 'Invalid username or password'} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} />
+            <Snackbar open={snackbarOpen} 
+            autoHideDuration={3000} onClose={handleSnackbarClose} 
+            message={loginSuccess ? 'Login Successful!' : 'Invalid username or password'} 
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+            <Alert style={{backgroundColor: 'blue', color:'whitesmoke'}} onClose={handleSnackbarClose} sx={{ width: '100%' }}>
+            Login Successful message!
+            </Alert>
+            </Snackbar> 
             </CardContent>
         </Card>
         </div>
