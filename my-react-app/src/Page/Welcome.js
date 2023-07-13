@@ -23,7 +23,7 @@ function Welcome() {
     return (
       <div style={myStyle} >
         <div >
-        <Button style={{color:"red"}} variant="contained" onClick={handleClick }> Chechin </Button>
+        <Button style={{backgroundColor:'green', color:'white'}} variant="contained" onClick={handleClick }> Chechin </Button>
         </div>
         
       </div>
