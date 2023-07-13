@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Button, TextField, Card, CardContent, Snackbar, Alert} from '@mui/material';
+import './text.css';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -38,7 +39,6 @@ function Login() {
         setUsername('')
         setPassword('')
     }
-
     const handleSnackbarClose = () => 
     {
         setSnackbarOpen(false);
@@ -50,10 +50,14 @@ function Login() {
             password: "1234"
         }];
 
-    
+    const cardStyle = {
+        margin: '20px'
+        };
+
     return (
-        <div style={{marginTop:'-100px', background: 'url(https://img.freepik.com/free-photo/wide-angle-shot-singletree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg)', backgroundSize: 'cover', height: '120vh',alignItems: 'center', justifyContent: 'center', display: 'flex'}}>
-        <Card style={{alignItems: 'center', maxWidth: 300, margin: '0 auto', marginTop: '100px' }}>
+        <div className="card" style={{marginTop:'-100px', background: 'url(https://img.freepik.com/free-photo/wide-angle-shot-singletree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg)', backgroundSize: 'cover', height: '120vh',alignItems: 'center', justifyContent: 'center', display: 'flex'}}>
+        <div style={cardStyle}> 
+            <Card style={{alignItems: 'center', maxWidth: 300, margin: '0 auto', marginTop: '100px' }}>
             <CardContent>
             <TextField id="outlined-basic" label="Username" variant="outlined" value={username} 
             onChange={(e) => setUsername(e.target.value)} 
@@ -83,7 +87,9 @@ function Login() {
                 </Alert>
             </Snackbar>
             </CardContent>
-        </Card>
+            </Card>
+        </div>
+        
         </div>
 
       
