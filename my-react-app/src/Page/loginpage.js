@@ -174,8 +174,8 @@ function Login() {
                   helperText={
                     fieldError && password.trim() === ''
                       ? 'Please enter the password'
-                      : passwordLength > 8 
-                      ? 'Maximum length is 8' 
+                      : passwordLength < 8 
+                      ? 'Length must be is 8' 
                       : `${8 - passwordLength} characters remaining` 
                   }
                 />
