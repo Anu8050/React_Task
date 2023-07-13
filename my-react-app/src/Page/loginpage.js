@@ -143,7 +143,7 @@ function Login() {
             <Card className="card" style={{alignItems: 'center', maxWidth: 300, margin: '0 auto', marginTop: '100px',border:"3px solid green"}} >
             <CardContent>
             <ThemeProvider theme={theme}>
-                <TextField className="custom-outline" id="outlined-basic" label="Username" variant="outlined" value={username} 
+                <TextField fullWidth className="custom-outline" id="outlined-basic" label="Username" variant="outlined" value={username} 
                 style={{ marginBottom: '20px' }}
                 // InputLabelProps={{style: { color: 'green'},}}
                 InputProps={{style: { borderColor: 'green' },  }}
@@ -151,7 +151,7 @@ function Login() {
                 error={fieldError && username.trim() === ''}
                 helperText={fieldError && username.trim() === '' ? 'Please enter the username' : ''}
                 />
-                <TextField className="custom-outline"  type="password" id="outlined-basic" label="Password" variant="outlined" value={password} 
+                <TextField fullWidth className="custom-outline"  type="password" id="outlined-basic" label="Password" variant="outlined" value={password} 
                 style={{ marginBottom: '20px' }}
                 // InputLabelProps={{style: { color: 'green'},}}
                 InputProps={{style: { borderColor: 'green' },
