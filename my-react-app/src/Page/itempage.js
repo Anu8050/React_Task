@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import {Box, Tabs, Tab} from '@mui/material';
 
-
 function Itempage() {
     const [value, setValue] = useState(0);
-    const handleChange = (event, newValue) => {
+
+    //This method is for setting tab value.
+    const handleChange = (event, newValue) => 
+    {
         setValue(newValue);
     };
     return (

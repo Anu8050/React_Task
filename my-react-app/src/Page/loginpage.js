@@ -15,7 +15,9 @@ function Login() {
     const [passwordLength, setPasswordLength] = useState(0);
 
     const navigate = useNavigate();
+    //This method is for login button functionality.
     const handleClick = () => {
+        //Check if username and password are empty it show error message.
         if (username.trim() === '' || password.trim() === '') 
         {
             setFieldError(true);
@@ -31,7 +33,7 @@ function Login() {
         //     return;
         // }
 
-        // Check if password contains at least one capital letter
+        // Check if password contains at least one capital letter.
         if (!/[A-Z]/.test(password)) 
         {
             setFieldError(true);
@@ -40,7 +42,7 @@ function Login() {
             return;
         }
 
-        // Check if password contains at least one number
+        // Check if password contains at least one number.
         if (!/\d/.test(password)) 
         {
             setFieldError(true);
@@ -49,15 +51,16 @@ function Login() {
             return;
         }
 
-        // Check if password contains at least one special character (.#@)
-        if (!/[.#@]/.test(password)) 
+        // Check if password contains at least one special character (.$&#@).
+        if (!/[.$&#@]/.test(password)) 
         {
             setFieldError(true);
             alert('Password must contain at least one of the following special characters: .#@');
             resetFields();
             return;
         }
-
+        
+        //Finding data fro
         const user = database.find(
           (user) => user.username === username && user.password === password
         );
@@ -73,9 +76,9 @@ function Login() {
             alert('Invalid username or password');
             resetFields();
         }
-      };
+    };
       
-
+    //Resetinf fields.
     const resetFields = () =>
     {
         setUsername('');
@@ -84,6 +87,7 @@ function Login() {
         setFieldError(false);
     }
 
+    //Open popup message for given time then it navigate to itempage.
     const openPopup = () => 
     {
         setPopupOpen(true);
@@ -94,34 +98,42 @@ function Login() {
         }, 2000);
         setNavigateTimer(timer);
     };
-      
+   
+    //Closeing popup after time out.
     const closePopup = () => 
     {
     setPopupOpen(false);
     clearTimeout(navigateTimer);
     };
-
+     
+    //this is for password Show when i click eye icon.
     const handleClickShowPassword = () => 
     {
         setShowPassword(!showPassword);
         setPasswordLength(0);
     };
     
+    //For password visibality.
     const handleMouseDownPassword = (event) => 
     {
         event.preventDefault();
     };
-
+    
+    //Hard code username and password data here.
     const database = [
         {
             username: "anu",
-            password: "1234"
+            password: "Anu123@"
+        },
+        {
+            username: "anusha",
+            password: "Aa123#"
         }];
 
     const theme = createTheme({
         palette: {
             primary: {
-            main: '#008000',
+            main: '#008000'
             },
         },
         });
@@ -134,7 +146,7 @@ function Login() {
                 <TextField className="custom-outline" id="outlined-basic" label="Username" variant="outlined" value={username} 
                 style={{ marginBottom: '20px' }}
                 // InputLabelProps={{style: { color: 'green'},}}
-                InputProps={{style: { borderColor: 'green' },}}
+                InputProps={{style: { borderColor: 'green' },  }}
                 onChange={(e) => setUsername(e.target.value)} 
                 error={fieldError && username.trim() === ''}
                 helperText={fieldError && username.trim() === '' ? 'Please enter the username' : ''}
@@ -182,5 +194,5 @@ function Login() {
 
       
     );
-  }
+}
 export default Login;
