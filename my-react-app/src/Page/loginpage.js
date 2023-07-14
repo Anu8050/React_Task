@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import {Button, TextField, Card, CardContent, Snackbar, Alert, IconButton, InputAdornment, createTheme, ThemeProvider, Dialog, CircularProgress, DialogTitle, DialogContent} from '@mui/material';
+import {Button, TextField, Card, CardContent, IconButton, InputAdornment, createTheme, ThemeProvider, Dialog, CircularProgress, DialogContent} from '@mui/material';
 import './text.css';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loginSuccess, setLoginSuccess] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [fieldError, setFieldError] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
@@ -38,7 +37,6 @@ function Login() {
         {
             setFieldError(true);
             alert('Password must contain at least one capital letter');
-            resetFields();
             return;
         }
 
@@ -47,7 +45,6 @@ function Login() {
         {
             setFieldError(true);
             alert('Password must contain at least one number');
-            resetFields();
             return;
         }
 
@@ -56,9 +53,15 @@ function Login() {
         {
             setFieldError(true);
             alert('Password must contain at least one of the following special characters: .#@');
-            resetFields();
             return;
         }
+
+        if (password.length < 8) 
+        {
+            setFieldError(true);
+            alert('Password must be at least 8 characters long');
+            return;
+          }
         
         //Finding data fro
         const user = database.find(
@@ -66,13 +69,13 @@ function Login() {
         );
         if (user) 
         {
-            setLoginSuccess(true);
+            // setLoginSuccess(true);
             resetFields();
             openPopup();
         } 
         else 
         {
-            setLoginSuccess(false);
+            // setLoginSuccess(false);
             alert('Invalid username or password');
             resetFields();
         }
@@ -123,7 +126,7 @@ function Login() {
     const database = [
         {
             username: "anu",
-            password: "Anu123@"
+            password: "Anu1234@"
         },
         {
             username: "anusha",
@@ -171,13 +174,7 @@ function Login() {
                     setPasswordLength(value.length); 
                   }}
                   error={fieldError && password.trim() === ''}
-                  helperText={
-                    fieldError && password.trim() === ''
-                      ? 'Please enter the password'
-                      : passwordLength < 8 
-                      ? 'Length must be is 8' 
-                      : `${8 - passwordLength} characters remaining` 
-                  }
+                  helperText={fieldError && username.trim() === '' ? 'Please enter the username' : ''}
                 />
             </ThemeProvider>
             <Button variant="contained" onClick={handleClick }> Login </Button>
